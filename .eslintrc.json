@@ -1,0 +1,64 @@
+{
+  "extends": ["airbnb"],
+  "parser": "babel-eslint",
+  "settings": {
+    "import/parser": "babel-eslint"
+  },
+  "plugins": [
+    "react",
+    "react-native",
+    "jsx-a11y",
+    "import"
+  ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "globals": {
+    "chrome": false,
+    "screen": false
+  },
+  "ecmaFeatures": {
+    "jsx": true
+  },
+  "rules": {
+    // Strict mode
+    "strict": [2, "never"],
+
+    // Code style
+    "indent": [2, 2],
+    "quotes": [2, "single"],
+    "no-unused-vars": [1, {}],
+    "no-use-before-define": 0,
+    "semi": ["error", "never"],
+    "eqeqeq": [2, "smart"],
+    "dot-notation": [2, {"allowKeywords": true, "allowPattern": ""}],
+    "no-redeclare": [2, {"builtinGlobals": true}],
+    "strict": [2, "global"],
+    "no-trailing-spaces": [2, { "skipBlankLines": true }],
+    "eol-last": 1,
+    "comma-spacing": [2, {"before": false, "after": true}],
+    "camelcase": [2, {"properties": "always"}],
+    "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
+    "comma-dangle": [1, "always-multiline"],
+    "no-dupe-args": 2,
+    "no-dupe-keys": 2,
+    "no-undef": 2,
+    "no-redeclare": 2,
+    "jsx-quotes": [2, "prefer-single"],
+    "object-curly-spacing": [2, "always"],
+    "react/jsx-no-bind": 0,
+    "react-native/no-unused-styles": 2,
+    "react-native/split-platform-components": 2,
+    "react-native/no-inline-styles": 2,
+    "react-native/no-color-literals": 2,
+    "react/require-default-props": 0,
+    "react/prefer-stateless-function": 0,
+    "react/forbid-prop-types": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "space-before-function-paren": ["error", "always"],
+    "import/prefer-default-export": ["error", "never"]
+  }
+}
+
