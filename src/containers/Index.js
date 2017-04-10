@@ -31,6 +31,7 @@ class Index extends Component {
     return (
       <Navigator
         initialRoute={{ scene: 'main', index: 0 }}
+        configureScene={() => Navigator.SceneConfigs.FloatFromBottom}
         renderScene={(route, navigator) => {
           const SceneToRender = Scenes[route.scene]
           return (
