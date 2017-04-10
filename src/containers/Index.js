@@ -9,11 +9,15 @@ import EStyleSheet from 'react-native-extended-stylesheet'
 import SceneProvider from './SceneProvider'
 import MainScene from '../scenes/MainScene'
 
-import { Style } from '../constants'
+import { Style, FontStyle } from '../constants'
 
 EStyleSheet.build({
-  primaryColor: Style.PrimaryColor,
-  backgroundColor: Style.BackgroundColor,
+  PrimaryColor: Style.PrimaryColor,
+  BackgroundColor: Style.BackgroundColor,
+  FontPrimaryColor: FontStyle.PrimaryColor,
+  FontOffBackgroundColor: FontStyle.OffBackgroundColor,
+  FontHighlightColor: FontStyle.HighlightColor,
+  ButtonFontSize: FontStyle.ButtonFontSize,
 })
 
 const Scenes = {

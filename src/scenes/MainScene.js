@@ -3,33 +3,58 @@ import React, { Component } from 'react'
 import EStyleSheet from 'react-native-extended-stylesheet'
 
 import {
-  View,
+  ScrollView,
   Text,
 } from 'react-native'
 
 import SceneComponent from './SceneComponent'
+import MetHeader from '../components/MetHeader'
+import NumberPicker from '../components/NumberPicker'
 
 class MainScene extends Component {
 
-  constructor (props) {
-    super(props)
-
-    this.state = {}
+  goToNumber (num) {
+    this.context.navigator.push({
+      scene: 'show-num',
+      index: 1,
+      params: { num },
+    })
   }
 
   render () {
     return (
-      <View style={styles.view}>
-        <Text>
-          TEST
-        </Text>
-      </View>
+      <ScrollView style={styles.container} contentContainerStyle={styles.inner}>
+        <MetHeader style={styles.header} />
+        <NumberPicker
+          style={styles.input}
+          goToNumber={this.goToNumber}
+        />
+        <Text style={styles.list}>TEST</Text>
+      </ScrollView>
     )
   }
 }
 
 const styles = EStyleSheet.create({
-
+  container: {
+    flex: 1,
+    backgroundColor: '$PrimaryColor',
+    maxWidth: '100%',
+  },
+  inner: {
+    minHeight: '100%',
+  },
+  header: {
+    height: 300,
+    width: '100%',
+  },
+  input: {
+    backgroundColor: '$PrimaryColor',
+  },
+  list: {
+    flex: 1,
+    backgroundColor: '$BackgroundColor',
+  },
 })
 
 

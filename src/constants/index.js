@@ -1,12 +1,16 @@
 
+const MET_RED = '#e4002b'
+
 export const Style = {
-  PrimaryColor: 'red',
-  BackgroundColor: 'white',
+  PrimaryColor: MET_RED,
+  BackgroundColor: '#FFFFFF',
 }
 
 export const FontStyle = {
-  PrimaryColor: 'black',
-  OffBackgroundColor: 'gray',
-  HighlightColor: 'red',
+  PrimaryColor: '#1a1a1a',
+  OffBackgroundColor: '#999',
+  HighlightColor: MET_RED,
+
+  ButtonFontSize: 16,
 }
 
