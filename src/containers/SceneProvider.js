@@ -16,7 +16,7 @@ class SceneProvider extends Component {
     route: React.PropTypes.object.isRequired,
   }
 
-  static displayName = 'SceneProvider';
+  static displayName = 'SceneProvider'
 
   constructor (props, context) {
     super(props, context)

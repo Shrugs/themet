@@ -8,6 +8,7 @@ import EStyleSheet from 'react-native-extended-stylesheet'
 
 import SceneProvider from './SceneProvider'
 import MainScene from '../scenes/MainScene'
+import ShowNumScene from '../scenes/ShowNumScene'
 
 import { Style, FontStyle } from '../constants'
 
@@ -22,6 +23,7 @@ EStyleSheet.build({
 
 const Scenes = {
   main: MainScene,
+  'show-num': ShowNumScene,
 }
 
 class Index extends Component {

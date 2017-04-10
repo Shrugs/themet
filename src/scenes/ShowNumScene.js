@@ -11,25 +11,17 @@ import SceneComponent from './SceneComponent'
 import MetHeader from '../components/MetHeader'
 import NumberPicker from '../components/NumberPicker'
 
-class MainScene extends SceneComponent {
+class ShowNumScene extends SceneComponent {
 
-  goToNumber = (num) => {
-    this.context.navigator.push({
-      scene: 'show-num',
-      index: 1,
-      params: { num },
-    })
+  goBack () {
+    this.context.navigator.pop()
   }
 
   render () {
     return (
       <ScrollView style={styles.container} contentContainerStyle={styles.inner}>
         <MetHeader style={styles.header} />
-        <NumberPicker
-          style={styles.input}
-          goToNumber={this.goToNumber}
-        />
-        <Text style={styles.list}>TEST</Text>
+        <Text style={styles.list}>{this.context.route.params.num}</Text>
       </ScrollView>
     )
   }
@@ -58,4 +50,4 @@ const styles = EStyleSheet.create({
 })
 
 
-export default MainScene
+export default ShowNumScene
