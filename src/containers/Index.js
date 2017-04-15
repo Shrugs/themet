@@ -13,6 +13,8 @@ import ShowNumScene from '../scenes/ShowNumScene'
 
 import { Style, FontStyle } from '../constants'
 
+import { getTracks } from '../lib/api'
+
 EStyleSheet.build({
   PrimaryColor: Style.PrimaryColor,
   DarkPrimaryColor: Style.DarkPrimaryColor,
@@ -24,16 +26,16 @@ EStyleSheet.build({
   ButtonFontSize: FontStyle.ButtonFontSize,
 })
 
-const initialRoute = {
-  scene: 'show-num',
-  index: 0,
-  params: { num: '222' },
-}
-
 // const initialRoute = {
-//   scene: 'main',
+//   scene: 'show-num',
 //   index: 0,
+//   params: { },
 // }
+
+const initialRoute = {
+  scene: 'main',
+  index: 0,
+}
 
 const Scenes = {
   main: MainScene,
@@ -41,6 +43,22 @@ const Scenes = {
 }
 
 class Index extends Component {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      store: {}
+    }
+  }
+
+  componentDidMount() {
+    getTracks()
+      .then((tracks) => {
+        this.setState({ store: tracks })
+      })
+  }
+
   render () {
     return (
       <View style={styles.container}>
@@ -50,7 +68,7 @@ class Index extends Component {
           renderScene={(route, navigator) => {
             const SceneToRender = Scenes[route.scene]
             return (
-              <SceneProvider route={route} navigator={navigator}>
+              <SceneProvider route={route} navigator={navigator} store={this.state.store}>
                 <SceneToRender />
               </SceneProvider>
             )

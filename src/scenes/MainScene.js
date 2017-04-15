@@ -13,11 +13,11 @@ import NumberPicker from '../components/NumberPicker'
 
 class MainScene extends SceneComponent {
 
-  goToNumber = (num) => {
+  goToNumber = num => {
     this.context.navigator.push({
       scene: 'show-num',
       index: 1,
-      params: { num },
+      params: { recording: this.context.store[num] },
     })
   }
 

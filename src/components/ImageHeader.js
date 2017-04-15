@@ -9,7 +9,7 @@ class ImageHeader extends Component {
 
   static propTypes = {
     style: View.propTypes.style,
-    source: React.PropTypes.object.isRequired
+    source: React.PropTypes.any.isRequired
   }
 
   render () {

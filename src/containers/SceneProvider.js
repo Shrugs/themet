@@ -9,11 +9,13 @@ class SceneProvider extends Component {
     children: React.PropTypes.element.isRequired,
     navigator: React.PropTypes.any.isRequired,
     route: React.PropTypes.object.isRequired,
+    store: React.PropTypes.object.isRequired,
   }
 
   static childContextTypes = {
     navigator: React.PropTypes.any.isRequired,
     route: React.PropTypes.object.isRequired,
+    store: React.PropTypes.object.isRequired,
   }
 
   static displayName = 'SceneProvider'
@@ -25,7 +27,7 @@ class SceneProvider extends Component {
   }
 
   getChildContext () {
-    return { navigator: this.navigator, route: this.route }
+    return { navigator: this.navigator, route: this.route, store: this.props.store }
   }
 
   render () {

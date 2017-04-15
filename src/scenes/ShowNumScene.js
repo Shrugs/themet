@@ -24,19 +24,8 @@ class ShowNumScene extends SceneComponent {
   }
 
   componentDidMount () {
-    // request the information for this scene from the api, then populate the state
-    this.setState({
-      loading: false,
-      recording: {
-        image: 'https://placekitten.com/300/400',
-        num: 222,
-        narrarator: 'Alex Cohen',
-        author: 'Matt Condon',
-        title: 'Some Museum Thing',
-        transcript: 'Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah.',
-        audio: 'whatever'
-      }
-    })
+    // start loading the audo track here
+    this.setState({ loading: false })
   }
 
   goBack = () => {
@@ -52,24 +41,28 @@ class ShowNumScene extends SceneComponent {
       )
     }
 
+    const {
+      recording
+    } = this.context.route.params
+
     return (
       <View style={styles.container}>
         <ScrollView style={styles.scrollView} contentContainerStyle={styles.inner}>
           <BackBanner onTap={this.goBack} />
-          <ImageHeader style={styles.header} source={{ uri: this.state.recording.image }} />
+          <ImageHeader style={styles.header} source={{ uri: recording.image }} />
           <View style={styles.list}>
             <View style={styles.row}>
-              <Text style={[styles.text, styles.bold]}>{this.state.recording.num}</Text>
-              <Text style={[styles.text, styles.faded]}>{`Narrarated by ${this.state.recording.narrarator}`}</Text>
+              <Text style={[styles.text, styles.bold]}>{recording.id}</Text>
+              <Text style={[styles.text, styles.faded]}>{`Narrarated by ${recording.narrarator}`}</Text>
             </View>
             <View style={styles.row}>
-              <Text style={[styles.text, styles.title]}>{this.state.recording.title}</Text>
+              <Text style={[styles.text, styles.title]}>{recording.title}</Text>
             </View>
             <View style={styles.row}>
-              <Text style={[styles.text, styles.faded]}>{this.state.recording.author}</Text>
+              <Text style={[styles.text, styles.faded]}>{recording.author}</Text>
             </View>
             <View style={styles.row}>
-              <Text style={[styles.text, styles.transcript]}>{this.state.recording.transcript}</Text>
+              <Text style={[styles.text, styles.transcript]}>{recording.transcript}</Text>
             </View>
           </View>
         </ScrollView>
