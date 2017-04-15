@@ -1,28 +1,27 @@
 import React, { Component } from 'react'
 
-import ImageHeader from './ImageHeader'
-
 import {
   View,
+  Image,
 } from 'react-native'
 
-import theMetLogo from '../images/the_met_logo.png'
-
-class MetHeader extends Component {
+class ImageHeader extends Component {
 
   static propTypes = {
     style: View.propTypes.style,
+    source: React.PropTypes.object.isRequired
   }
 
   render () {
     return (
-      <ImageHeader
+      <Image
         style={this.props.style}
-        source={theMetLogo}
+        resizeMode='cover'
+        source={this.props.source}
       />
     )
   }
 }
 
 
-export default MetHeader
+export default ImageHeader
