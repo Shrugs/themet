@@ -28,7 +28,7 @@ class ShowNumScene extends SceneComponent {
     this.setState({
       loading: false,
       recording: {
-        image: 'https://placekitten.com/300/400.png',
+        image: 'https://placekitten.com/300/400',
         num: 222,
         narrarator: 'Alex Cohen',
         author: 'Matt Condon',
