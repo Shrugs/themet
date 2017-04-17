@@ -5,6 +5,7 @@ export const Style = {
   PrimaryColor: MET_RED,
   BackgroundColor: '#FFFFFF',
   InverseBackgroundColor: '#020202',
+  OffBackgroundColor: '#DDD',
   DarkPrimaryColor: 'rgb(123, 5, 28)',
 }
 

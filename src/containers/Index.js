@@ -20,6 +20,7 @@ EStyleSheet.build({
   DarkPrimaryColor: Style.DarkPrimaryColor,
   BackgroundColor: Style.BackgroundColor,
   InverseBackgroundColor: Style.InverseBackgroundColor,
+  OffBackgroundColor: Style.OffBackgroundColor,
   FontPrimaryColor: FontStyle.PrimaryColor,
   FontOffBackgroundColor: FontStyle.OffBackgroundColor,
   FontHighlightColor: FontStyle.HighlightColor,
@@ -44,18 +45,23 @@ const Scenes = {
 
 class Index extends Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
-      store: {}
+      store: {},
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
+    this.updateStore()
+  }
+
+  updateStore = (cb) => {
     getTracks()
       .then((tracks) => {
-        this.setState({ store: tracks })
+        this.setState({ store: { state: tracks, update: this.updateStore.bind(this) } })
+        if (cb) { cb() }
       })
   }
 
@@ -82,8 +88,8 @@ class Index extends Component {
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '$PrimaryColor'
-  }
+    backgroundColor: '$PrimaryColor',
+  },
 })
 
 export default Index

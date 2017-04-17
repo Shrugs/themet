@@ -6,6 +6,7 @@ import {
   View,
   ScrollView,
   Text,
+  StatusBar
 } from 'react-native'
 
 import SceneComponent from './SceneComponent'
@@ -19,12 +20,13 @@ class ShowNumScene extends SceneComponent {
     super(props)
 
     this.state = {
-      loading: true
+      loading: true,
     }
   }
 
   componentDidMount () {
     // start loading the audo track here
+    // eslint-disable-next-line react/no-did-mount-set-state
     this.setState({ loading: false })
   }
 
@@ -42,11 +44,12 @@ class ShowNumScene extends SceneComponent {
     }
 
     const {
-      recording
+      recording,
     } = this.context.route.params
 
     return (
       <View style={styles.container}>
+        <StatusBar hidden animated />
         <ScrollView style={styles.scrollView} contentContainerStyle={styles.inner}>
           <BackBanner onTap={this.goBack} />
           <ImageHeader style={styles.header} source={{ uri: recording.image }} />
@@ -80,7 +83,7 @@ const styles = EStyleSheet.create({
     maxWidth: '100%',
   },
   scrollView: {
-    flex: 1
+    flex: 1,
   },
   inner: {
     minHeight: '80%',
@@ -96,12 +99,12 @@ const styles = EStyleSheet.create({
     flex: 1,
     backgroundColor: '$BackgroundColor',
     paddingTop: 10,
-    paddingBottom: 25
+    paddingBottom: 25,
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
   },
   text: {
     marginTop: 2,
@@ -109,7 +112,7 @@ const styles = EStyleSheet.create({
   },
   bold: {
     fontSize: '$baseFontSize',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   title: {
     fontSize: '$baseFontSize * 1.4',
@@ -117,7 +120,7 @@ const styles = EStyleSheet.create({
   },
   faded: {
     fontSize: '$baseFontSize',
-    color: '$FontOffBackgroundColor'
+    color: '$FontOffBackgroundColor',
   },
   transcript: {
     marginTop: 20,
