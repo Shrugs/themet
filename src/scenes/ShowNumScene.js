@@ -9,6 +9,7 @@ import {
   StatusBar,
 } from 'react-native'
 
+import DualBackground from '../components/DualBackground'
 import SceneComponent from './SceneComponent'
 import BackBanner from '../components/BackBanner'
 import ImageHeader from '../components/ImageHeader'
@@ -48,39 +49,51 @@ class ShowNumScene extends SceneComponent {
     } = this.context.route.params
 
     return (
-      <View style={styles.container}>
-        <StatusBar hidden animated />
-        <ScrollView style={styles.scrollView} contentContainerStyle={styles.inner}>
-          <BackBanner onTap={this.goBack} />
-          <ImageHeader style={styles.header} source={{ uri: recording.image }} />
-          <View style={styles.list}>
-            <View style={styles.row}>
-              <Text style={[styles.text, styles.bold]}>{recording.id}</Text>
-              <Text style={[styles.text, styles.faded]}>{`Narrarated by ${recording.narrarator}`}</Text>
+      <DualBackground
+        style={styles.container}
+        backgroundViews={[
+          <View style={styles.topBackground} />,
+          <View style={styles.bottomBackground} />,
+        ]}
+      >
+        <View style={styles.container}>
+          <StatusBar hidden animated />
+          <ScrollView style={styles.scrollView} contentContainerStyle={styles.inner}>
+            <BackBanner onTap={this.goBack} />
+            <ImageHeader style={styles.header} source={{ uri: recording.image }} />
+            <View style={styles.list}>
+              <View style={styles.row}>
+                <Text style={[styles.text, styles.bold]}>{recording.id}</Text>
+                <Text style={[styles.text, styles.faded]}>{`Narrarated by ${recording.narrarator}`}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={[styles.text, styles.title]}>{recording.title}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={[styles.text, styles.faded]}>{recording.author}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={[styles.text, styles.transcript]}>{recording.transcript}</Text>
+              </View>
             </View>
-            <View style={styles.row}>
-              <Text style={[styles.text, styles.title]}>{recording.title}</Text>
-            </View>
-            <View style={styles.row}>
-              <Text style={[styles.text, styles.faded]}>{recording.author}</Text>
-            </View>
-            <View style={styles.row}>
-              <Text style={[styles.text, styles.transcript]}>{recording.transcript}</Text>
-            </View>
-          </View>
-        </ScrollView>
-        <AudioPlayer source={recording.audio} />
-      </View>
+          </ScrollView>
+          <AudioPlayer source={recording.audio} />
+        </View>
+      </DualBackground>
     )
   }
 }
 
 const styles = EStyleSheet.create({
   $baseFontSize: 18,
+  topBackground: {
+    backgroundColor: '$InverseBackgroundColor'
+  },
+  bottomBackground: {
+    backgroundColor: '$BackgroundColor',
+  },
   container: {
     flex: 1,
-    backgroundColor: '$BackgroundColor',
-    maxWidth: '100%',
   },
   scrollView: {
     flex: 1,

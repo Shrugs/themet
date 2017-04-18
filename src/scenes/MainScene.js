@@ -13,6 +13,7 @@ import {
   StatusBar,
 } from 'react-native'
 
+import DualBackground from '../components/DualBackground'
 import SceneComponent from './SceneComponent'
 import MetHeader from '../components/MetHeader'
 import NumberPicker from '../components/NumberPicker'
@@ -52,58 +53,74 @@ class MainScene extends SceneComponent {
     const recordings = this.getRecordings()
 
     return (
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.inner}
-        refreshControl={
-          <RefreshControl
-            tintColor={Style.BackgroundColor}
-            refreshing={this.state.refreshing}
-            onRefresh={this.onRefresh}
-          />
-        }
+      <DualBackground
+        style={styles.background}
+        backgroundViews={[
+          <View style={styles.topBackground} />,
+          <View style={styles.bottomBackground} />,
+        ]}
       >
-        <StatusBar barStyle='light-content' animated />
-        <MetHeader style={styles.header} />
-        <NumberPicker
-          style={styles.input}
-          goToNumber={this.goToNumber}
-        />
-        <View style={styles.list}>
-          {recordings.length === 0 &&
-            <ActivityIndicator
-              style={styles.loading}
-              size='large'
-              animating
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.inner}
+          refreshControl={
+            <RefreshControl
+              tintColor={Style.BackgroundColor}
+              refreshing={this.state.refreshing}
+              onRefresh={this.onRefresh}
             />
           }
-          {recordings.length > 0 &&
-            <Text style={[styles.text, styles.title, styles.faded, styles.listHeader]}>
-              Popular Numbers
-            </Text>
-          }
-          {recordings.map(rec =>
-            <TouchableHighlight
-              underlayColor={Style.OffBackgroundColor}
-              key={rec.id}
-              onPress={() => this.goToNumber(rec.id)}
-            >
-              <Text style={[styles.text, styles.entry]}>
-                {numToWords(rec.id)}
+        >
+          <StatusBar barStyle='light-content' animated />
+          <MetHeader style={styles.header} />
+          <NumberPicker
+            style={styles.input}
+            goToNumber={this.goToNumber}
+          />
+          <View style={styles.list}>
+            {recordings.length === 0 &&
+              <ActivityIndicator
+                style={styles.loading}
+                size='large'
+                animating
+              />
+            }
+            {recordings.length > 0 &&
+              <Text style={[styles.text, styles.title, styles.faded, styles.listHeader]}>
+                Popular Numbers
               </Text>
-            </TouchableHighlight>
-          )}
-        </View>
-      </ScrollView>
+            }
+            {recordings.map(rec =>
+              <TouchableHighlight
+                underlayColor={Style.OffBackgroundColor}
+                key={rec.id}
+                onPress={() => this.goToNumber(rec.id)}
+              >
+                <Text style={[styles.text, styles.entry]}>
+                  {numToWords(rec.id)}
+                </Text>
+              </TouchableHighlight>
+            )}
+          </View>
+        </ScrollView>
+      </DualBackground>
     )
   }
 }
 
 const styles = EStyleSheet.create({
   $baseFontSize: 18,
+  background: {
+    flex: 1,
+  },
+  topBackground: {
+    backgroundColor: '$PrimaryColor',
+  },
+  bottomBackground: {
+    backgroundColor: '$BackgroundColor',
+  },
   container: {
     flex: 1,
-    backgroundColor: '$PrimaryColor',
     maxWidth: '100%',
   },
   inner: {
