@@ -87,7 +87,7 @@ class ShowNumScene extends SceneComponent {
 const styles = EStyleSheet.create({
   $baseFontSize: 18,
   topBackground: {
-    backgroundColor: '$InverseBackgroundColor'
+    backgroundColor: '$InverseBackgroundColor',
   },
   bottomBackground: {
     backgroundColor: '$BackgroundColor',

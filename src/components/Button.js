@@ -5,7 +5,10 @@ import {
   TouchableHighlight,
   Text,
 } from 'react-native'
+
 import EStyleSheet from 'react-native-extended-stylesheet'
+
+import { Style } from '../constants'
 
 class Button extends Component {
 
@@ -23,7 +26,11 @@ class Button extends Component {
 
     return (
       <View style={[styles.container, this.props.style]}>
-        <TouchableHighlight style={styles.button} onPress={onTap}>
+        <TouchableHighlight
+          underlayColor={Style.OffBackgroundColor}
+          style={styles.button}
+          onPress={onTap}
+        >
           <Text style={styles.text}>{children}</Text>
         </TouchableHighlight>
       </View>
