@@ -12,7 +12,7 @@ export async function getTracks () {
       author: 'Matt Condon',
       title: 'Some Museum Thing',
       transcript: 'Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah.',
-      audio: 'whatever',
+      audio: 'https://archive.org/download/brennanworldwide5sec/Podzim_You_Suck_Muzak.mp3',
     },
     '222': {
       id: '222',
@@ -21,7 +21,7 @@ export async function getTracks () {
       author: 'Matt Condon',
       title: 'Some Museum Thing',
       transcript: 'Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah.',
-      audio: 'whatever',
+      audio: 'https://archive.org/download/brennanworldwide5sec/Podzim_You_Suck_Muzak.mp3',
     },
   }
 }

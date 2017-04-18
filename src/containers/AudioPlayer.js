@@ -3,12 +3,19 @@ import React, { Component } from 'react'
 import EStyleSheet from 'react-native-extended-stylesheet'
 
 import {
-  StyleSheet,
   View,
   Image,
   TouchableHighlight,
-  Animated
+  Animated,
+  ActivityIndicator,
+  Easing,
 } from 'react-native'
+
+import {
+  Player,
+} from 'react-native-audio-toolkit'
+
+import { Style } from '../constants'
 
 import playButton from '../images/play_button.png'
 import pauseButton from '../images/pause_button.png'
@@ -16,40 +23,55 @@ import pauseButton from '../images/pause_button.png'
 class AudioPlayer extends Component {
 
   static propTypes = {
-    style: View.propTypes.style
+    style: View.propTypes.style,
+    source: React.PropTypes.string.isRequired,
   }
 
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     const progress = new Animated.Value(0)
     this.state = {
-      didEnd: true,
+      loading: true,
       hasStarted: false,
       isPlaying: false,
-      progress: progress,
-      inverseProgress: progress.interpolate({
-        inputRange: [0, 100],
-        outputRange: [100, 0]
-      })
+      progress,
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidMount () {
+    this.player = new Player(this.props.source, {
+      autoDestroy: false,
+      continuesToPlayInBackground: true,
+    })
+    this.player.prepare(() => {
+      this.setState({ loading: false })
+      this.start()
+    })
+    this.player.on('ended', this.end)
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    // if we started playing music, start animating that bar
     if (!prevState.isPlaying && this.state.isPlaying) {
+      const currentTime = Math.max(0, this.player.currentTime)
+      const timeLeft = this.player.duration - currentTime
+      const currentProgress = (currentTime / this.player.duration) * 100
+
+      this.state.progress.setValue(currentProgress)
       Animated.timing(
         this.state.progress,
         {
+          easing: Easing.linear,
           toValue: 100,
-          // @TODO(shrugs) - figure out the rest of the duration of the track here
-          duration: 4000
+          duration: timeLeft,
         }
-      ).start(() => {
-        if (this.state.didEnd) {
-          this.end()
-        }
-      })
+      ).start()
     }
+  }
+
+  componentWillUnmount () {
+    this.player.destroy()
   }
 
   start = () => {
@@ -65,29 +87,30 @@ class AudioPlayer extends Component {
   play = () => {
     // play music
     // animate to 100 over the length of the song
-    this.setState({
-      isPlaying: true,
-      hasStarted: true,
-      didEnd: true
+    this.player.play(() => {
+      this.setState({
+        isPlaying: true,
+        hasStarted: true,
+      })
     })
   }
 
   pause = () => {
     // stop animation and stop playing
-    this.setState({ didEnd: false }, () => {
-      this.state.progress.stopAnimation(val => {
-        this.setState({
-          isPlaying: false,
-          // progress: this.state.
-        })
-      })
+    this.player.pause(() => {
+      this.setState({ isPlaying: false })
+      this.state.progress.stopAnimation()
     })
   }
 
   togglePlayPause = () => {
+    // early exit if we're loading
+    if (this.state.loading) { return }
+
     if (this.state.isPlaying) {
       this.pause()
     } else {
+      // eslint-disable-next-line no-lonely-if
       if (!this.state.hasStarted) {
         this.start()
       } else {
@@ -96,15 +119,17 @@ class AudioPlayer extends Component {
     }
   }
 
-  playPauseImage = () => {
-    return this.state.isPlaying
-      ? pauseButton
-      : playButton
-  }
+  // eslint-disable-next-line no-confusing-arrow
+  playPauseImage = () => this.state.isPlaying ? pauseButton : playButton
 
   render () {
+    const inverseProgress = this.state.progress.interpolate({
+      inputRange: [0, 100],
+      outputRange: [100, 0],
+    })
+
     return (
-      <View style={[this.state.style, styles.container]}>
+      <View style={[this.props.style, styles.container]}>
         <TouchableHighlight style={styles.playPause} onPress={this.togglePlayPause}>
           <Image
             style={styles.image}
@@ -113,14 +138,20 @@ class AudioPlayer extends Component {
         </TouchableHighlight>
         <View style={styles.progressBar}>
           <Animated.View style={[styles.progress, { flex: this.state.progress }]} />
-          <Animated.View style={[styles.spacer, { flex: this.state.inverseProgress }]} />
+          <Animated.View style={[styles.spacer, { flex: inverseProgress }]} />
         </View>
+        {this.state.loading &&
+          <ActivityIndicator
+            style={styles.loading}
+            color={Style.BackgroundColor}
+            size='large'
+            animating
+          />
+        }
       </View>
     )
   }
 }
-
-// <View style={[styles.spacer, { width: this.state.inverseProgress }]} />
 
 const styles = EStyleSheet.create({
   container: {
@@ -134,14 +165,23 @@ const styles = EStyleSheet.create({
   progressBar: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '$PrimaryColor'
+    backgroundColor: '$PrimaryColor',
   },
   progress: {
     backgroundColor: '$DarkPrimaryColor',
   },
   spacer: {
 
-  }
+  },
+  loading: {
+    flex: 1,
+    position: 'absolute',
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
 })
 
 

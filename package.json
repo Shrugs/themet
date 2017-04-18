@@ -10,6 +10,7 @@
     "lodash": "^4.17.4",
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.0",
+    "react-native-audio-toolkit": "^1.0.5",
     "react-native-extended-stylesheet": "^0.3.2"
   },
   "devDependencies": {

@@ -6,7 +6,7 @@ import {
   View,
   ScrollView,
   Text,
-  StatusBar
+  StatusBar,
 } from 'react-native'
 
 import SceneComponent from './SceneComponent'
@@ -69,7 +69,7 @@ class ShowNumScene extends SceneComponent {
             </View>
           </View>
         </ScrollView>
-        <AudioPlayer />
+        <AudioPlayer source={recording.audio} />
       </View>
     )
   }
