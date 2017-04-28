@@ -1,8 +1,8 @@
+// https://themet.herokuapp.com/recordings
+
 export async function getTracks () {
-  // no internet? cached
-  // check internet for version of tracks
-  // if new version, fetch that, then cache
-  // if not new version, return cached
+  // @TODO(shrugs) throw cloudflare in front of heroku, cache every 30 minutes, only one pending request
+  // then call it a day
 
   return {
     '223': {
