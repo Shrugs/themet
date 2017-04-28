@@ -7,6 +7,6 @@ class Recording < ApplicationRecord
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
   has_attached_file :audio, default_url: ''
-  validates_attachment_content_type :audio, content_type: /\Aaudio\/.mp3\z/
+  validates_attachment_content_type :audio, content_type: /\Aaudio\/mp3\z/
 
 end

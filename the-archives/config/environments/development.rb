@@ -52,13 +52,23 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  # config.paperclip_defaults = {
+  #   storage: :fog,
+  #   fog_credentials: {
+  #     provider: :Local,
+  #     local_root: Rails.root.join('public').join('tmp')
+  #   },
+  #   fog_directory: '',
+  #   fog_host: "#{ENV.fetch('HOST_URL')}/tmp"
+  # }
   config.paperclip_defaults = {
     storage: :fog,
     fog_credentials: {
-      provider: :Local,
-      local_root: Rails.root.join('public').join('tmp')
+      provider: :AWS,
+      aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+      aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+      region: ENV['AWS_REGION']
     },
-    fog_directory: '',
-    fog_host: "#{ENV.fetch('HOST_URL')}/tmp"
+    fog_directory: ENV['ASSETS_BUCKET_NAME']
   }
 end
