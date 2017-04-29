@@ -13,7 +13,7 @@ import ShowNumScene from '../scenes/ShowNumScene'
 
 import { Style, FontStyle } from '../constants'
 
-import { getTracks } from '../lib/api'
+import { getRecordings } from '../lib/api'
 
 EStyleSheet.build({
   PrimaryColor: Style.PrimaryColor,
@@ -58,10 +58,13 @@ class Index extends Component {
   }
 
   updateStore = (cb) => {
-    getTracks()
-      .then((tracks) => {
+    getRecordings()
+      .then(tracks => {
         this.setState({ store: { state: tracks, update: this.updateStore.bind(this) } })
         if (cb) { cb() }
+      })
+      .catch(err => {
+        console.error(err)
       })
   }
 
