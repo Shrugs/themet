@@ -49,7 +49,7 @@ class Index extends Component {
     super(props)
 
     this.state = {
-      store: {},
+      store: { state: {}, update: this.updateStore.bind(this) },
     }
   }
 

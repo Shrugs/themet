@@ -24,7 +24,9 @@ class DualBackground extends Component {
             })
           )}
         </View>
-        {Children.only(this.props.children)}
+        <View style={styles.foregroundContainer}>
+          {this.props.children}
+        </View>
       </View>
     )
   }
@@ -39,6 +41,9 @@ const styles = EStyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+  },
+  foregroundContainer: {
+    flex: 1,
   },
   backgroundTile: {
     flex: 1,

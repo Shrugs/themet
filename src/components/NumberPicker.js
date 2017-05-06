@@ -30,7 +30,7 @@ class NumberPicker extends Component {
     this.setState({ number: text })
   }
 
-  onTap = () => {
+  goToNumber = () => {
     this.props.goToNumber(this.state.number)
   }
 
@@ -40,25 +40,29 @@ class NumberPicker extends Component {
 
   render () {
     return (
-      <View style={[this.props.style, styles.container]}>
-        <Spacer size={1} />
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            keyboardType='number-pad'
-            placeholder='Audio Guide Number'
-            onChangeText={this.onChangeText}
-            value={this.state.number}
-            maxLength={4}
-          />
-          <Button
-            onTap={this.onTap}
-            style={this.shouldShowGoButton() ? styles.visible : styles.invisible}
-          >
-            GO
-          </Button>
+      <View>
+        <View style={[this.props.style, styles.container]}>
+          <Spacer size={1} />
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              keyboardType='numeric'
+              placeholder='Audio Guide Number'
+              onChangeText={this.onChangeText}
+              onSubmitEditing={this.goToNumber}
+              value={this.state.number}
+              maxLength={4}
+              underlineColorAndroid='transparent'
+            />
+            <Button
+              onTap={this.goToNumber}
+              style={this.shouldShowGoButton() ? styles.visible : styles.invisible}
+            >
+              GO
+            </Button>
+          </View>
+          <Spacer size={1} />
         </View>
-        <Spacer size={1} />
       </View>
     )
   }
@@ -91,9 +95,10 @@ const styles = EStyleSheet.create({
   },
   invisible: {
     width: 0,
+    opacity: 0,
   },
   visible: {
-    flex: 3,
+    flex: 4,
   },
 })
 

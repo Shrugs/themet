@@ -44,11 +44,15 @@ class AudioPlayer extends Component {
       autoDestroy: false,
       continuesToPlayInBackground: true,
     })
-    this.player.prepare(() => {
-      this.setState({ loading: false })
-      this.start()
-    })
-    this.player.on('ended', this.end)
+    // This apparently doesn't compute in the background on android, so
+    // we'll throw it into a timeout so it happens after the animation
+    setTimeout(() => {
+      this.player.prepare(() => {
+        this.setState({ loading: false })
+        this.start()
+      })
+      this.player.on('ended', this.end)
+    }, 400)
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -124,7 +128,7 @@ class AudioPlayer extends Component {
 
   render () {
     const inverseProgress = this.state.progress.interpolate({
-      inputRange: [0, 100],
+      inputRange: [0, 99],
       outputRange: [100, 0],
     })
 
@@ -171,7 +175,6 @@ const styles = EStyleSheet.create({
     backgroundColor: '$DarkPrimaryColor',
   },
   spacer: {
-
   },
   loading: {
     flex: 1,

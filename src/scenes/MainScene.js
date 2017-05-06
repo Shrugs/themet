@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React from 'react'
-
+import KeyboardSpacer from 'react-native-keyboard-spacer'
 import EStyleSheet from 'react-native-extended-stylesheet'
 
 import {
@@ -11,6 +11,7 @@ import {
   TouchableHighlight,
   RefreshControl,
   StatusBar,
+  Platform,
 } from 'react-native'
 
 import DualBackground from '../components/DualBackground'
@@ -33,10 +34,16 @@ class MainScene extends SceneComponent {
   }
 
   goToNumber = (id) => {
+    const recording = this.context.store.state[id]
+    if (!recording) {
+      // @TODO(shrugs) improper input, tell the user somehow
+      return
+    }
+
     this.context.navigator.push({
       scene: 'show-num',
       index: 1,
-      params: { recording: this.context.store.state[id] },
+      params: { recording },
     })
   }
 
@@ -71,7 +78,7 @@ class MainScene extends SceneComponent {
             />
           }
         >
-          <StatusBar barStyle='light-content' animated />
+          <StatusBar barStyle='light-content' backgroundColor={Style.PrimaryColor} animated />
           <MetHeader style={styles.header} />
           <NumberPicker
             style={styles.input}
@@ -103,6 +110,9 @@ class MainScene extends SceneComponent {
             )}
           </View>
         </ScrollView>
+        {Platform.OS === 'ios' &&
+          <KeyboardSpacer />
+        }
       </DualBackground>
     )
   }

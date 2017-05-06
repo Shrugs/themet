@@ -3471,6 +3471,10 @@ react-native-extended-stylesheet@^0.3.2:
     css-mediaquery "^0.1.2"
     object-resolve-path "^1.1.0"
 
+react-native-keyboard-spacer@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-spacer/-/react-native-keyboard-spacer-0.3.1.tgz#9580297ebfd078202dc4c65303d29cda35de67f1"
+
 react-native@0.43.0:
   version "0.43.0"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.43.0.tgz#782b3e3918590d36f9b362b80d72341e8468c3aa"
