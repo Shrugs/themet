@@ -1,6 +1,7 @@
+import { API_BASE } from 'react-native-dotenv'
 
 const Config = {
-  API_BASE: process.env.API_BASE,
+  API_BASE,
 }
 
 export default Config

@@ -3,9 +3,55 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "API_BASE=http://10.0.2.2:3000 node node_modules/react-native/local-cli/cli.js start",
-    "build-ios": "API_BASE=https://d9e8k3203hhhc.cloudfront.net/recordings node node_modules/react-native/local-cli/cli.js run-ios --configuration Release",
-    "build-android": "API_BASE=https://d9e8k3203hhhc.cloudfront.net/recordings node node_modules/react-native/local-cli/cli.js run-android --configuration Release",
+    "start": "bnr start",
+    "bundle-ios:staging": "bnr bundle-ios:staging",
+    "bundle-ios:production": "bnr bundle-ios:production",
+    "bundle-android:staging": "bnr bundle-android:staging",
+    "bundle-android:production": "bnr bundle-android:production",
+    "build-android:production": "bnr build-android:production",
+    "run-android:production": "bnr run-android:production",
+    "test": "bnr test"
+  },
+  "betterScripts": {
+    "start": {
+      "command": "node node_modules/react-native/local-cli/cli.js start",
+      "env": {
+        "API_BASE": "http://10.0.2.2:3000"
+      }
+    },
+    "bundle-ios:staging": {
+      "command": "node node_modules/react-native/local-cli/cli.js bundle --platform ios --dev true --entry-file index.ios.js --bundle-output ios/main.jsbundle --assets-dest ios/assets",
+      "env": {
+        "API_BASE": "https://themet.ngrok.io"
+      }
+    },
+    "bundle-ios:production": {
+      "command": "node node_modules/react-native/local-cli/cli.js bundle --platform ios --dev false --entry-file index.ios.js --bundle-output ios/main.jsbundle --assets-dest ios/assets",
+      "env": {
+        "API_BASE": "https://d9e8k3203hhhc.cloudfront.net"
+      }
+    },
+    "run-ios:production": {
+      "command": "node node_modules/react-native/local-cli/cli.js run-ios --configuration Release --no-packager"
+    },
+    "bundle-android:staging": {
+      "command": "node node_modules/react-native/local-cli/cli.js bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
+      "env": {
+        "API_BASE": "https://themet.ngrok.io"
+      }
+    },
+    "bundle-android:production": {
+      "command": "node node_modules/react-native/local-cli/cli.js bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
+      "env": {
+        "API_BASE": "https://d9e8k3203hhhc.cloudfront.net"
+      }
+    },
+    "build-android:production": {
+      "command": "cd android && ./gradlew assembleRelease"
+    },
+    "run-android:production": {
+      "command": "node node_modules/react-native/local-cli/cli.js run-android --variant release --no-packager"
+    },
     "test": "jest"
   },
   "dependencies": {
@@ -15,12 +61,14 @@
     "react-native": "0.43.0",
     "react-native-audio-toolkit": "^1.0.5",
     "react-native-extended-stylesheet": "^0.3.2",
-    "react-native-keyboard-spacer": "^0.3.1"
+    "react-native-keyboard-spacer": "^0.3.1",
+    "react-native-dotenv": "^0.0.4"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.1",
     "babel-jest": "19.0.0",
     "babel-preset-react-native": "1.9.1",
+    "better-npm-run": "^0.0.15",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",

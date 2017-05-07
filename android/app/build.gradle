@@ -65,6 +65,11 @@ import com.android.build.OutputFile
  * ]
  */
 
+project.ext.react = [
+        // whether to bundle JS and assets in release mode
+        bundleInRelease: false,
+]
+
 apply from: "../../node_modules/react-native/react.gradle"
 
 /**
