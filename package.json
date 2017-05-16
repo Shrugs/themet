@@ -50,9 +50,10 @@
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.0",
     "react-native-audio-toolkit": "^1.0.5",
+    "react-native-dotenv": "^0.0.4",
     "react-native-extended-stylesheet": "^0.3.2",
-    "react-native-keyboard-spacer": "^0.3.1",
-    "react-native-dotenv": "^0.0.4"
+    "react-native-keep-awake": "^2.0.4",
+    "react-native-keyboard-spacer": "^0.3.1"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.1",

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import KeepAwake from 'react-native-keep-awake'
 import EStyleSheet from 'react-native-extended-stylesheet'
 
 import {
@@ -135,6 +136,7 @@ class AudioPlayer extends Component {
 
     return (
       <View style={[this.props.style, styles.container]}>
+        <KeepAwake />
         <TouchableHighlight style={styles.playPause} onPress={this.togglePlayPause}>
           <Image
             style={styles.image}

@@ -89,7 +89,7 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '23.0.1'
 
     defaultConfig {
         applicationId "com.themet"
@@ -135,6 +135,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile project(':react-native-audio-toolkit')
+    compile project(':react-native-keep-awake')
 }
 
 // Run this once to be able to run the application with BUCK
