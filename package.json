@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "start": "bnr start",
+    "run-ios:dev": "bnr run-ios:dev",
+    "run-ios:production": "bnr run-ios:production",
     "bundle-ios:staging": "bnr bundle-ios:staging",
     "bundle-ios:production": "bnr bundle-ios:production",
     "bundle-android:staging": "bnr bundle-android:staging",
@@ -14,37 +16,25 @@
   },
   "betterScripts": {
     "start": {
-      "command": "node node_modules/react-native/local-cli/cli.js start",
-      "env": {
-        "API_BASE": "http://10.0.2.2:3000"
-      }
+      "command": "node node_modules/react-native/local-cli/cli.js start"
     },
     "bundle-ios:staging": {
-      "command": "node node_modules/react-native/local-cli/cli.js bundle --platform ios --dev true --entry-file index.ios.js --bundle-output ios/main.jsbundle --assets-dest ios/assets",
-      "env": {
-        "API_BASE": "https://themet.ngrok.io"
-      }
+      "command": "node node_modules/react-native/local-cli/cli.js bundle --platform ios --dev true --entry-file index.ios.js --bundle-output ios/main.jsbundle --assets-dest ios/assets --reset-cache"
     },
     "bundle-ios:production": {
-      "command": "node node_modules/react-native/local-cli/cli.js bundle --platform ios --dev false --entry-file index.ios.js --bundle-output ios/main.jsbundle --assets-dest ios/assets",
-      "env": {
-        "API_BASE": "https://d9e8k3203hhhc.cloudfront.net"
-      }
+      "command": "node node_modules/react-native/local-cli/cli.js bundle --platform ios --dev false --entry-file index.ios.js --bundle-output ios/main.jsbundle --assets-dest ios/assets --reset-cache"
+    },
+    "run-ios:dev": {
+      "command": "node node_modules/react-native/local-cli/cli.js run-ios --no-packager"
     },
     "run-ios:production": {
       "command": "node node_modules/react-native/local-cli/cli.js run-ios --configuration Release --no-packager"
     },
     "bundle-android:staging": {
-      "command": "node node_modules/react-native/local-cli/cli.js bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
-      "env": {
-        "API_BASE": "https://themet.ngrok.io"
-      }
+      "command": "node node_modules/react-native/local-cli/cli.js bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ --reset-cache"
     },
     "bundle-android:production": {
-      "command": "node node_modules/react-native/local-cli/cli.js bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
-      "env": {
-        "API_BASE": "https://d9e8k3203hhhc.cloudfront.net"
-      }
+      "command": "node node_modules/react-native/local-cli/cli.js bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ --reset-cache"
     },
     "build-android:production": {
       "command": "cd android && ./gradlew assembleRelease"

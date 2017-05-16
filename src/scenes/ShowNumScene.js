@@ -17,7 +17,7 @@ import AudioPlayer from '../containers/AudioPlayer'
 
 class ShowNumScene extends SceneComponent {
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -25,7 +25,7 @@ class ShowNumScene extends SceneComponent {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     // start loading the audo track here
     // eslint-disable-next-line react/no-did-mount-set-state
     this.setState({ loading: false })
@@ -35,7 +35,7 @@ class ShowNumScene extends SceneComponent {
     this.context.navigator.pop()
   }
 
-  render () {
+  render() {
     if (this.state.loading) {
       return (
         <Text>
@@ -63,8 +63,8 @@ class ShowNumScene extends SceneComponent {
             <ImageHeader style={styles.header} source={{ uri: recording.image }} />
             <View style={styles.list}>
               <View style={styles.row}>
-                <Text style={[styles.text, styles.bold]}>{recording.id}</Text>
-                <Text style={[styles.text, styles.faded]}>{`Narrarated by ${recording.narrarator}`}</Text>
+                <Text style={[styles.text, styles.bold, styles.recordingId]}>{recording.id}</Text>
+                <Text style={[styles.text, styles.faded, styles.narrarator]}>{`Narrarated by ${recording.narrarator}`}</Text>
               </View>
               <View style={styles.row}>
                 <Text style={[styles.text, styles.title]}>{recording.title}</Text>
@@ -102,7 +102,7 @@ const styles = EStyleSheet.create({
     minHeight: '80%',
   },
   header: {
-    height: 300,
+    minHeight: 300,
     width: '100%',
   },
   input: {
@@ -122,6 +122,7 @@ const styles = EStyleSheet.create({
   text: {
     marginTop: 2,
     marginLeft: 15,
+    marginRight: 15,
   },
   bold: {
     fontSize: '$baseFontSize',
@@ -138,6 +139,11 @@ const styles = EStyleSheet.create({
   transcript: {
     marginTop: 20,
   },
+  recordingId: {
+  },
+  narrarator: {
+    flex: 1,
+  }
 })
 
 
