@@ -34,7 +34,7 @@ class MainScene extends SceneComponent {
   }
 
   goToNumber = (id) => {
-    const recording = this.context.store.state[id]
+    const recording = this.context.store.state.tracks[id]
     if (!recording) {
       // @TODO(shrugs) improper input, tell the user somehow
       return
@@ -54,10 +54,11 @@ class MainScene extends SceneComponent {
     })
   }
 
-  getRecordings = () => _(this.context.store.state).values().sortBy('id').value()
+  getRecordings = () => _(this.context.store.state.tracks).values().sortBy('id').value()
 
   render () {
     const recordings = this.getRecordings()
+    const didFail = this.context.store.state.didFail
 
     return (
       <DualBackground
@@ -85,7 +86,7 @@ class MainScene extends SceneComponent {
             goToNumber={this.goToNumber}
           />
           <View style={styles.list}>
-            {recordings.length === 0 &&
+            {recordings.length === 0 && !didFail &&
               <ActivityIndicator
                 style={styles.loading}
                 size='large'
@@ -108,6 +109,11 @@ class MainScene extends SceneComponent {
                 </Text>
               </TouchableHighlight>
             )}
+            {didFail &&
+              <Text style={[styles.text, styles.title, styles.faded, styles.listHeader, styles.centeredText]}>
+                No connection available. Pull to refresh to try again.
+              </Text>
+            }
           </View>
         </ScrollView>
         {Platform.OS === 'ios' &&
@@ -169,6 +175,9 @@ const styles = EStyleSheet.create({
   entry: {
     fontSize: '$baseFontSize * 1.2',
     fontWeight: 'bold',
+  },
+  centeredText: {
+    textAlign: 'center',
   },
 })
 

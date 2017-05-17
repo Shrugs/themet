@@ -28,7 +28,7 @@ class AudioPlayer extends Component {
     source: React.PropTypes.string.isRequired,
   }
 
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     const progress = new Animated.Value(0)
@@ -40,7 +40,7 @@ class AudioPlayer extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.player = new Player(this.props.source, {
       autoDestroy: false,
       continuesToPlayInBackground: true,
@@ -57,7 +57,7 @@ class AudioPlayer extends Component {
     }, 500)
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate (prevProps, prevState) {
     // if we started playing music, start animating that bar
     if (!prevState.isPlaying && this.state.isPlaying) {
       const currentTime = Math.max(0, this.player.currentTime)
@@ -76,7 +76,7 @@ class AudioPlayer extends Component {
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.player.destroy()
   }
 
@@ -128,7 +128,7 @@ class AudioPlayer extends Component {
   // eslint-disable-next-line no-confusing-arrow
   playPauseImage = () => this.state.isPlaying ? pauseButton : playButton
 
-  render() {
+  render () {
     const inverseProgress = this.state.progress.interpolate({
       inputRange: [0, 99],
       outputRange: [100, 0],

@@ -17,7 +17,7 @@ import AudioPlayer from '../containers/AudioPlayer'
 
 class ShowNumScene extends SceneComponent {
 
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
@@ -25,7 +25,7 @@ class ShowNumScene extends SceneComponent {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     // start loading the audo track here
     // eslint-disable-next-line react/no-did-mount-set-state
     this.setState({ loading: false })
@@ -35,7 +35,7 @@ class ShowNumScene extends SceneComponent {
     this.context.navigator.pop()
   }
 
-  render() {
+  render () {
     if (this.state.loading) {
       return (
         <Text>
@@ -143,7 +143,7 @@ const styles = EStyleSheet.create({
   },
   narrarator: {
     flex: 1,
-  }
+  },
 })
 
 

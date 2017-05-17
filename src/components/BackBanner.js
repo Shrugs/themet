@@ -4,7 +4,7 @@ import EStyleSheet from 'react-native-extended-stylesheet'
 
 import {
   Image,
-  TouchableHighlight
+  TouchableHighlight,
 } from 'react-native'
 
 import DownArrow from '../images/down_arrow.png'
@@ -12,7 +12,7 @@ import DownArrow from '../images/down_arrow.png'
 class BackBanner extends Component {
 
   static propTypes = {
-    onTap: React.PropTypes.func.isRequired
+    onTap: React.PropTypes.func.isRequired,
   }
 
   render () {
@@ -36,7 +36,7 @@ const styles = EStyleSheet.create({
     backgroundColor: '$InverseBackgroundColor',
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
 })
 
 

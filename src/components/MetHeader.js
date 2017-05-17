@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 
-import ImageHeader from './ImageHeader'
-
 import {
   View,
 } from 'react-native'
 
+import ImageHeader from './ImageHeader'
 import theMetLogo from '../images/the_met_logo.png'
 
 class MetHeader extends Component {

@@ -27,12 +27,6 @@ EStyleSheet.build({
   ButtonFontSize: FontStyle.ButtonFontSize,
 })
 
-// const initialRoute = {
-//   scene: 'show-num',
-//   index: 0,
-//   params: { },
-// }
-
 const initialRoute = {
   scene: 'main',
   index: 0,
@@ -49,7 +43,7 @@ class Index extends Component {
     super(props)
 
     this.state = {
-      store: { state: {}, update: this.updateStore.bind(this) },
+      store: { state: { tracks: {} }, update: this.updateStore.bind(this) },
     }
   }
 
@@ -59,12 +53,22 @@ class Index extends Component {
 
   updateStore = (cb) => {
     getRecordings()
-      .then(tracks => {
-        this.setState({ store: { state: tracks, update: this.updateStore.bind(this) } })
+      .then((tracks) => {
+        this.setState({
+          store: {
+            state: { tracks, didFail: false },
+            update: this.updateStore.bind(this),
+          },
+        })
         if (cb) { cb() }
       })
-      .catch(err => {
-        console.error(err)
+      .catch(() => {
+        this.setState({
+          store: {
+            state: { tracks: {}, didFail: true },
+            update: this.updateStore.bind(this),
+          },
+        })
       })
   }
 
