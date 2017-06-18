@@ -69,6 +69,7 @@ class Index extends Component {
             update: this.updateStore.bind(this),
           },
         })
+        if (cb) { cb() }
       })
   }
 

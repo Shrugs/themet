@@ -5,6 +5,8 @@ import {
   Image,
 } from 'react-native'
 
+import EStyleSheet from 'react-native-extended-stylesheet'
+
 class ImageHeader extends Component {
 
   static propTypes = {
@@ -14,14 +16,24 @@ class ImageHeader extends Component {
 
   render () {
     return (
-      <Image
-        style={this.props.style}
-        resizeMode='cover'
-        source={this.props.source}
-      />
+      <View style={this.props.style}>
+        <Image
+          style={styles.image}
+          resizeMode='cover'
+          source={this.props.source}
+        />
+      </View>
     )
   }
 }
+
+const styles = EStyleSheet.create({
+  image: {
+    width: null,
+    height: null,
+    flex: 1,
+  },
+})
 
 
 export default ImageHeader

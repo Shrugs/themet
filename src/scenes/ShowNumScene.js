@@ -58,8 +58,8 @@ class ShowNumScene extends SceneComponent {
       >
         <View style={styles.container}>
           <StatusBar hidden animated />
+          <BackBanner onTap={this.goBack} />
           <ScrollView style={styles.scrollView} contentContainerStyle={styles.inner}>
-            <BackBanner onTap={this.goBack} />
             <ImageHeader style={styles.header} source={{ uri: recording.image }} />
             <View style={styles.list}>
               <View style={styles.row}>
@@ -102,7 +102,7 @@ const styles = EStyleSheet.create({
     minHeight: '80%',
   },
   header: {
-    minHeight: 300,
+    aspectRatio: 1,
     width: '100%',
   },
   input: {

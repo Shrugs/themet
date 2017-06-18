@@ -143,7 +143,8 @@ const styles = EStyleSheet.create({
     minHeight: '100%',
   },
   header: {
-    height: 300,
+    // aspectRatio: 1,
+    minHeight: '40%',
     width: '100%',
   },
   input: {
