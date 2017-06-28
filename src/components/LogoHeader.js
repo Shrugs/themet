@@ -5,9 +5,9 @@ import {
 } from 'react-native'
 
 import ImageHeader from './ImageHeader'
-import theMetLogo from '../images/the_met_logo.png'
+import logo from '../images/logo.png'
 
-class MetHeader extends Component {
+class LogoHeader extends Component {
 
   static propTypes = {
     style: View.propTypes.style,
@@ -17,11 +17,11 @@ class MetHeader extends Component {
     return (
       <ImageHeader
         style={this.props.style}
-        source={theMetLogo}
+        source={logo}
       />
     )
   }
 }
 
 
-export default MetHeader
+export default LogoHeader

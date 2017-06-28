@@ -16,7 +16,7 @@ import {
 
 import DualBackground from '../components/DualBackground'
 import SceneComponent from './SceneComponent'
-import MetHeader from '../components/MetHeader'
+import LogoHeader from '../components/LogoHeader'
 import NumberPicker from '../components/NumberPicker'
 
 import { Style } from '../constants'
@@ -79,8 +79,8 @@ class MainScene extends SceneComponent {
             />
           }
         >
-          <StatusBar barStyle='light-content' backgroundColor={Style.PrimaryColor} animated />
-          <MetHeader style={styles.header} />
+          <StatusBar barStyle='light-content' backgroundColor={Style.PrimaryColor} hidden />
+          <LogoHeader style={styles.header} />
           <NumberPicker
             style={styles.input}
             goToNumber={this.goToNumber}
@@ -143,7 +143,7 @@ const styles = EStyleSheet.create({
     minHeight: '100%',
   },
   header: {
-    // aspectRatio: 1,
+    aspectRatio: 1,
     minHeight: '40%',
     width: '100%',
   },
@@ -153,6 +153,7 @@ const styles = EStyleSheet.create({
   list: {
     flex: 1,
     backgroundColor: '$BackgroundColor',
+    paddingBottom: 15,
   },
   loading: {
     flex: 1,

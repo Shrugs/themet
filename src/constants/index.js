@@ -1,5 +1,5 @@
 
-const MET_RED = '#e4002b'
+const MET_RED = '#ff0000'
 
 export const Style = {
   PrimaryColor: MET_RED,
