@@ -4,6 +4,12 @@ import KeyboardSpacer from 'react-native-keyboard-spacer'
 import EStyleSheet from 'react-native-extended-stylesheet'
 
 import {
+  TabViewAnimated,
+  TabBar,
+  SceneMap,
+} from 'react-native-tab-view'
+
+import {
   ActivityIndicator,
   View,
   ScrollView,
@@ -18,6 +24,7 @@ import DualBackground from '../components/DualBackground'
 import SceneComponent from './SceneComponent'
 import LogoHeader from '../components/LogoHeader'
 import NumberPicker from '../components/NumberPicker'
+import NumberList from '../components/NumberList'
 
 import { Style } from '../constants'
 
@@ -30,6 +37,13 @@ class MainScene extends SceneComponent {
 
     this.state = {
       refreshing: false,
+      listState: {
+        index: 0,
+        routes: [
+          { key: 'popular', title: 'Popular Numbers' },
+          { key: 'all', title: 'All Numbers' },
+        ],
+      },
     }
   }
 
@@ -56,6 +70,18 @@ class MainScene extends SceneComponent {
 
   getRecordings = () => _(this.context.store.state.tracks).values().sortBy('id').value()
 
+  _handleChangeTab = index => this.setState({ listState: {
+    ...this.state.listState,
+    index,
+  } });
+
+  _renderHeader = props => <TabBar {...props} />;
+
+  // _renderScene = SceneMap({
+  //   1: FirstRoute,
+  //   2: SecondRoute,
+  // });
+
   render () {
     const recordings = this.getRecordings()
     const didFail = this.context.store.state.didFail
@@ -79,42 +105,17 @@ class MainScene extends SceneComponent {
             />
           }
         >
-          <StatusBar barStyle='light-content' backgroundColor={Style.PrimaryColor} hidden />
+          <StatusBar hidden />
           <LogoHeader style={styles.header} />
           <NumberPicker
             style={styles.input}
             goToNumber={this.goToNumber}
           />
-          <View style={styles.list}>
-            {recordings.length === 0 && !didFail &&
-              <ActivityIndicator
-                style={styles.loading}
-                size='large'
-                animating
-              />
-            }
-            {recordings.length > 0 &&
-              <Text style={[styles.text, styles.title, styles.faded, styles.listHeader]}>
-                Popular Numbers
-              </Text>
-            }
-            {recordings.map(rec =>
-              <TouchableHighlight
-                underlayColor={Style.OffBackgroundColor}
-                key={rec.id}
-                onPress={() => this.goToNumber(rec.id)}
-              >
-                <Text style={[styles.text, styles.entry]}>
-                  {numToWords(rec.id)}
-                </Text>
-              </TouchableHighlight>
-            )}
-            {didFail &&
-              <Text style={[styles.text, styles.title, styles.faded, styles.listHeader, styles.centeredText]}>
-                No connection available. Pull to refresh to try again.
-              </Text>
-            }
-          </View>
+          <NumberList
+            recordings={recordings}
+            goToNumber={this.goToNumber}
+            didFail={didFail}
+          />
         </ScrollView>
         {Platform.OS === 'ios' &&
           <KeyboardSpacer />
@@ -149,37 +150,6 @@ const styles = EStyleSheet.create({
   },
   input: {
     backgroundColor: '$PrimaryColor',
-  },
-  list: {
-    flex: 1,
-    backgroundColor: '$BackgroundColor',
-    paddingBottom: 15,
-  },
-  loading: {
-    flex: 1,
-  },
-  text: {
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 25,
-    marginRight: 25,
-  },
-  title: {
-    fontSize: '$baseFontSize * 0.9',
-    fontWeight: 'bold',
-  },
-  faded: {
-    color: '$FontOffBackgroundColor',
-  },
-  listHeader: {
-    marginTop: 25,
-  },
-  entry: {
-    fontSize: '$baseFontSize * 1.2',
-    fontWeight: 'bold',
-  },
-  centeredText: {
-    textAlign: 'center',
   },
 })
 

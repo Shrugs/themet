@@ -53,7 +53,8 @@
     "react-native-dotenv": "^0.0.4",
     "react-native-extended-stylesheet": "^0.3.2",
     "react-native-keep-awake": "^2.0.4",
-    "react-native-keyboard-spacer": "^0.3.1"
+    "react-native-keyboard-spacer": "^0.3.1",
+    "react-native-tab-view": "^0.0.66"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.1",

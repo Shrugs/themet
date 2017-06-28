@@ -57,7 +57,7 @@ class ShowNumScene extends SceneComponent {
         ]}
       >
         <View style={styles.container}>
-          <StatusBar hidden animated />
+          <StatusBar hidden />
           <BackBanner onTap={this.goBack} />
           <ScrollView style={styles.scrollView} contentContainerStyle={styles.inner}>
             <ImageHeader style={styles.header} source={{ uri: recording.image }} />
