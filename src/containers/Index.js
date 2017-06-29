@@ -6,6 +6,10 @@ import {
 } from 'react-native'
 
 import EStyleSheet from 'react-native-extended-stylesheet'
+import {
+  MessageBarManager,
+  MessageBar,
+} from 'react-native-message-bar'
 
 import MainScene from '../scenes/MainScene'
 import ShowNumScene from '../scenes/ShowNumScene'
@@ -48,6 +52,11 @@ class Index extends Component {
 
   componentDidMount () {
     this.updateStore()
+    MessageBarManager.registerMessageBar(this.alert)
+  }
+
+  componentWillUnmount () {
+    MessageBarManager.unregisterMessageBar()
   }
 
   updateStore = (bustCache = false, cb) => {
@@ -89,6 +98,7 @@ class Index extends Component {
             )
           }}
         />
+        <MessageBar ref={r => this.alert = r} />
       </View>
     )
   }

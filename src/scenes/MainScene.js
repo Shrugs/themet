@@ -2,6 +2,9 @@ import _ from 'lodash'
 import React from 'react'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 import EStyleSheet from 'react-native-extended-stylesheet'
+import {
+  MessageBarManager,
+} from 'react-native-message-bar'
 
 import {
   TabViewAnimated,
@@ -52,7 +55,17 @@ class MainScene extends SceneComponent {
   goToNumber = (id) => {
     const recording = this.props.store.state.tracks[id]
     if (!recording) {
-      // @TODO(shrugs) improper input, tell the user somehow
+      MessageBarManager.showAlert({
+        title: 'We don\'t know that art.',
+        message: 'So like, we know art, but maybe not all of them, you know?',
+        alertType: 'warning',
+        stylesheetWarning: {
+          backgroundColor: Style.PrimaryBlue,
+        },
+        viewTopInset: 15,
+        viewRightInset: 5,
+        viewBottomInset: 15,
+      })
       return
     }
 
