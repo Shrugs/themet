@@ -6,15 +6,11 @@ import EStyleSheet from 'react-native-extended-stylesheet'
 import {
   TabViewAnimated,
   TabBar,
-  SceneMap,
 } from 'react-native-tab-view'
 
 import {
-  ActivityIndicator,
   View,
   ScrollView,
-  Text,
-  TouchableHighlight,
   RefreshControl,
   StatusBar,
   Platform,
@@ -28,33 +24,39 @@ import NumberList from '../components/NumberList'
 
 import { Style } from '../constants'
 
-import { numToWords } from '../lib/helpers'
-
 class MainScene extends SceneComponent {
 
   constructor (props) {
     super(props)
 
     this.state = {
+      recordings: [],
       refreshing: false,
-      listState: {
-        index: 0,
-        routes: [
-          { key: 'popular', title: 'Popular Numbers' },
-          { key: 'all', title: 'All Numbers' },
-        ],
-      },
+      loading: true,
+      index: 0,
+      routes: [
+        { key: 'popular', title: 'Popular Numbers' },
+        { key: 'all', title: 'All Numbers' },
+      ],
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    const recordings = this.getRecordings(nextProps)
+    this.setState({
+      recordings,
+      loading: recordings.length === 0,
+    })
+  }
+
   goToNumber = (id) => {
-    const recording = this.context.store.state.tracks[id]
+    const recording = this.props.store.state.tracks[id]
     if (!recording) {
       // @TODO(shrugs) improper input, tell the user somehow
       return
     }
 
-    this.context.navigator.push({
+    this.props.navigator.push({
       scene: 'show-num',
       index: 1,
       params: { recording },
@@ -63,29 +65,38 @@ class MainScene extends SceneComponent {
 
   onRefresh = () => {
     this.setState({ refreshing: true })
-    this.context.store.update(() => {
+    this.props.store.update(true, () => {
       this.setState({ refreshing: false })
     })
   }
 
-  getRecordings = () => _(this.context.store.state.tracks).values().sortBy('id').value()
+  getRecordings = props => _((props || this.props).store.state.tracks).values().sortBy('id').value()
 
-  _handleChangeTab = index => this.setState({ listState: {
-    ...this.state.listState,
-    index,
-  } });
+  handleChangeTab = index => this.setState({ index });
 
-  _renderHeader = props => <TabBar {...props} />;
+  renderHeader = props => <TabBar
+    {...props}
+    pressColor={Style.PrimaryLightBlue}
+    style={styles.tabbar}
+    labelStyle={styles.labelStyle}
+    indicatorStyle={styles.indicatorStyle}
+  />
 
-  // _renderScene = SceneMap({
-  //   1: FirstRoute,
-  //   2: SecondRoute,
-  // });
+  renderScene = (opts) => {
+    const { route } = opts
+    const props = {
+      goToNumber: this.goToNumber,
+      didFail: this.props.store.state.didFail,
+      loading: this.state.loading || this.state.refreshing,
+      recordings: route.key === 'popular'
+        ? this.state.recordings.filter(r => r.featured)
+        : this.state.recordings,
+    }
+
+    return <NumberList {...props} />
+  }
 
   render () {
-    const recordings = this.getRecordings()
-    const didFail = this.context.store.state.didFail
-
     return (
       <DualBackground
         style={styles.background}
@@ -111,10 +122,12 @@ class MainScene extends SceneComponent {
             style={styles.input}
             goToNumber={this.goToNumber}
           />
-          <NumberList
-            recordings={recordings}
-            goToNumber={this.goToNumber}
-            didFail={didFail}
+          <TabViewAnimated
+            style={styles.tabview}
+            navigationState={this.state}
+            renderScene={this.renderScene}
+            renderHeader={this.renderHeader}
+            onRequestChangeTab={this.handleChangeTab}
           />
         </ScrollView>
         {Platform.OS === 'ios' &&
@@ -150,6 +163,19 @@ const styles = EStyleSheet.create({
   },
   input: {
     backgroundColor: '$PrimaryColor',
+  },
+  tabview: {
+    flex: 1,
+  },
+  tabbar: {
+    backgroundColor: Style.PrimaryBlue,
+  },
+  indicatorStyle: {
+    backgroundColor: Style.White,
+  },
+  labelStyle: {
+    color: Style.White,
+    fontWeight: 'bold',
   },
 })
 

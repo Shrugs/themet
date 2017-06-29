@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import React from 'react'
 
 import EStyleSheet from 'react-native-extended-stylesheet'
@@ -17,47 +16,40 @@ import { numToWords } from '../lib/helpers'
 class NumberList extends React.Component {
 
   static propTypes = {
-    recordings: React.PropTypes.array,
+    recordings: React.PropTypes.array.isRequired,
+    loading: React.PropTypes.bool,
     didFail: React.PropTypes.bool,
     goToNumber: React.PropTypes.func.isRequired,
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      refreshing: false,
-      listState: {
-        index: 0,
-        routes: [
-          { key: 'popular', title: 'Popular Numbers' },
-          { key: 'all', title: 'All Numbers' },
-        ],
-      },
-    }
   }
 
   render () {
     const {
       recordings,
+      loading,
       didFail,
     } = this.props
 
     return (
       <View style={styles.list}>
-        {recordings.length === 0 && !didFail &&
+        {loading && !didFail &&
           <ActivityIndicator
             style={styles.loading}
             size='large'
             animating
           />
         }
-        {recordings.length > 0 &&
-          <Text style={[styles.text, styles.title, styles.faded, styles.listHeader]}>
-            Popular Numbers
+        {recordings.length === 0 && !loading && !didFail &&
+          <Text
+            style={[
+              styles.text, styles.title,
+              styles.faded, styles.listHeader,
+              styles.centeredText,
+            ]}
+          >
+            Could not find any audio tours.
           </Text>
         }
-        {recordings.map(rec =>
+        {!loading && recordings.map(rec =>
           <TouchableHighlight
             underlayColor={Style.OffBackgroundColor}
             key={rec.id}
@@ -89,6 +81,7 @@ const styles = EStyleSheet.create({
   list: {
     flex: 1,
     backgroundColor: '$BackgroundColor',
+    paddingTop: 15,
     paddingBottom: 15,
   },
   loading: {

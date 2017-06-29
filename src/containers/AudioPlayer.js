@@ -7,9 +7,7 @@ import {
   View,
   Image,
   TouchableHighlight,
-  Animated,
   ActivityIndicator,
-  Easing,
 } from 'react-native'
 
 import {
@@ -31,16 +29,15 @@ class AudioPlayer extends Component {
   constructor (props) {
     super(props)
 
-    const progress = new Animated.Value(0)
     this.state = {
       loading: true,
-      hasStarted: false,
       isPlaying: false,
-      progress,
+      progress: 0,
     }
   }
 
   componentDidMount () {
+    this.lastSeek = 0
     this.player = new Player(this.props.source, {
       autoDestroy: false,
       continuesToPlayInBackground: true,
@@ -50,104 +47,135 @@ class AudioPlayer extends Component {
     // @TODO(Shrugs) - figure out how to run this in the background.
     setTimeout(() => {
       this.player.prepare(() => {
-        this.setState({ loading: false })
-        this.start()
+        setTimeout(() => {
+          this.start()
+        }, 5000)
+        // also, because of https://github.com/futurice/react-native-audio-toolkit/issues/41
+        // we're just going to wait 5 seconds because fuck everything
       })
+
+      this.updateState()
+
       this.player.on('ended', this.end)
+      this.player.on('pause', this.pause)
+
+      this.progressInterval = setInterval(() => {
+        if (this.player && this.shouldUpdateProgressBar()) {
+          this.setState({
+            progress: (Math.max(0, this.player.currentTime) / this.player.duration) * 100,
+          })
+        }
+      }, 100)
     }, 500)
   }
 
-  componentDidUpdate (prevProps, prevState) {
-    // if we started playing music, start animating that bar
-    if (!prevState.isPlaying && this.state.isPlaying) {
-      const currentTime = Math.max(0, this.player.currentTime)
-      const timeLeft = this.player.duration - currentTime
-      const currentProgress = (currentTime / this.player.duration) * 100
-
-      this.state.progress.setValue(currentProgress)
-      Animated.timing(
-        this.state.progress,
-        {
-          easing: Easing.linear,
-          toValue: 100,
-          duration: timeLeft,
-        }
-      ).start()
-    }
-  }
-
   componentWillUnmount () {
+    clearTimeout(this.progressInterval)
     this.player.destroy()
   }
 
+  onProgressBarLayout = (evt) => {
+    this.progressBarWidth = evt.nativeEvent.layout.width
+  }
+
+  updateState () {
+    this.setState({
+      isPlaying: this.player && this.player.isPlaying,
+      canPlay: this.player && this.player.canPlay,
+    })
+  }
+
+  shouldUpdateProgressBar = () => Date.now() - this.lastSeek > 500
+
   start = () => {
-    this.state.progress.setValue(0)
+    this.updateState()
+    this.setState({
+      progress: 0,
+      loading: false,
+    })
     this.play()
   }
 
   end = () => {
     this.pause()
-    this.setState({ hasStarted: false })
+    this.updateState()
   }
 
   play = () => {
-    // play music
-    // animate to 100 over the length of the song
     this.player.play(() => {
-      this.setState({
-        isPlaying: true,
-        hasStarted: true,
-      })
+      this.updateState()
+      this.player.play()
     })
   }
 
   pause = () => {
-    // stop animation and stop playing
     this.player.pause(() => {
-      this.setState({ isPlaying: false })
-      this.state.progress.stopAnimation()
+      this.updateState()
     })
   }
 
   togglePlayPause = () => {
-    // early exit if we're loading
-    if (this.state.loading) { return }
+    if (!this.state.canPlay) { return }
 
-    if (this.state.isPlaying) {
-      this.pause()
-    } else {
-      // eslint-disable-next-line no-lonely-if
-      if (!this.state.hasStarted) {
-        this.start()
-      } else {
+    this.player.playPause(() => {
+      this.updateState()
+    })
+  }
+
+  seek (percentage) {
+    if (!this.player) { return }
+
+    this.lastSeek = Date.now()
+
+    const position = percentage * this.player.duration
+    this.player.seek(position, () => {
+      this.updateState()
+      if (!this.player.isPlaying) {
         this.play()
       }
-    }
+    })
   }
 
   // eslint-disable-next-line no-confusing-arrow
   playPauseImage = () => this.state.isPlaying ? pauseButton : playButton
 
+  handlePlayerPress = (e) => {
+    if (this.progressBarWidth) {
+      this.seek(e.nativeEvent.locationX / this.progressBarWidth)
+    }
+  }
+
   render () {
-    const inverseProgress = this.state.progress.interpolate({
-      inputRange: [0, 99],
-      outputRange: [100, 0],
-    })
+    const inverseProgress = 100 - this.state.progress
 
     return (
       <View style={[this.props.style, styles.container]}>
         <KeepAwake />
-        <TouchableHighlight style={styles.playPause} onPress={this.togglePlayPause}>
+        <TouchableHighlight
+          style={styles.playPause}
+          onPress={this.togglePlayPause}
+        >
           <Image
             style={styles.image}
             source={this.playPauseImage()}
           />
         </TouchableHighlight>
-        <View style={styles.progressBar}>
-          <Animated.View style={[styles.progress, { flex: this.state.progress }]} />
-          <Animated.View style={[styles.spacer, { flex: inverseProgress }]} />
+        <View
+          style={styles.progressBar}
+          onLayout={this.onProgressBarLayout}
+          onResponderRelease={this.handlePlayerPress}
+          pointerEvents='box-only'
+          onStartShouldSetResponder={() => true}
+          onMoveShouldSetResponder={() => true}
+        >
+          <View
+            style={[styles.progress, { flex: this.state.progress }]}
+          />
+          <View
+            style={[styles.spacer, { flex: inverseProgress }]}
+          />
         </View>
-        {this.state.loading &&
+        {(!this.state.canPlay || this.state.loading) &&
           <ActivityIndicator
             style={styles.loading}
             color={Style.BackgroundColor}

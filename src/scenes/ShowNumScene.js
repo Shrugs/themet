@@ -32,7 +32,7 @@ class ShowNumScene extends SceneComponent {
   }
 
   goBack = () => {
-    this.context.navigator.pop()
+    this.props.navigator.pop()
   }
 
   render () {
@@ -46,7 +46,7 @@ class ShowNumScene extends SceneComponent {
 
     const {
       recording,
-    } = this.context.route.params
+    } = this.props.route.params
 
     return (
       <DualBackground

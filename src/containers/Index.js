@@ -7,7 +7,6 @@ import {
 
 import EStyleSheet from 'react-native-extended-stylesheet'
 
-import SceneProvider from './SceneProvider'
 import MainScene from '../scenes/MainScene'
 import ShowNumScene from '../scenes/ShowNumScene'
 
@@ -51,8 +50,8 @@ class Index extends Component {
     this.updateStore()
   }
 
-  updateStore = (cb) => {
-    getRecordings()
+  updateStore = (bustCache = false, cb) => {
+    getRecordings(bustCache)
       .then((tracks) => {
         this.setState({
           store: {
@@ -82,9 +81,11 @@ class Index extends Component {
           renderScene={(route, navigator) => {
             const SceneToRender = Scenes[route.scene]
             return (
-              <SceneProvider route={route} navigator={navigator} store={this.state.store}>
-                <SceneToRender />
-              </SceneProvider>
+              <SceneToRender
+                route={route}
+                navigator={navigator}
+                store={this.state.store}
+              />
             )
           }}
         />
