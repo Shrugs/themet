@@ -102,7 +102,7 @@ class MainScene extends SceneComponent {
       didFail: this.props.store.state.didFail,
       loading: this.state.loading || this.state.refreshing,
       recordings: route.key === 'popular'
-        ? this.state.recordings.filter(r => r.featured)
+        ? this.state.recordings.filter(r => r.popular)
         : this.state.recordings,
     }
 

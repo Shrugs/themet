@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170428062234) do
+ActiveRecord::Schema.define(version: 20170629055900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20170428062234) do
     t.datetime "audio_updated_at"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.boolean  "popular"
     t.index ["num"], name: "index_recordings_on_num", unique: true, using: :btree
   end
 

@@ -11,7 +11,8 @@ class RecordingsController < ApplicationController
         author: r.author,
         title: r.title,
         transcript: r.transcript,
-        audio: r.audio.url
+        audio: r.audio.url,
+        popular: r.popular
       }
     }
 

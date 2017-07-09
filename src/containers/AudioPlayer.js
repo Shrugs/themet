@@ -37,6 +37,7 @@ class AudioPlayer extends Component {
   }
 
   componentDidMount () {
+    this.didUnmount = false
     this.lastSeek = 0
     this.player = new Player(this.props.source, {
       autoDestroy: false,
@@ -45,11 +46,12 @@ class AudioPlayer extends Component {
     // This apparently doesn't compute in the background on android, so
     // we'll throw it into a timeout so it happens after the animation
     // @TODO(Shrugs) - figure out how to run this in the background.
-    setTimeout(() => {
+    this.preparePlayerTimeout = setTimeout(() => {
       this.player.prepare(() => {
-        setTimeout(() => {
+        if (this.didUnmount) { return }
+        this.startTimeout = setTimeout(() => {
           this.start()
-        }, 5000)
+        }, 2000)
         // also, because of https://github.com/futurice/react-native-audio-toolkit/issues/41
         // we're just going to wait 5 seconds because fuck everything
       })
@@ -70,7 +72,10 @@ class AudioPlayer extends Component {
   }
 
   componentWillUnmount () {
-    clearTimeout(this.progressInterval)
+    this.didUnmount = true
+    clearTimeout(this.preparePlayerTimeout)
+    clearTimeout(this.startTimeout)
+    clearInterval(this.progressInterval)
     this.player.destroy()
   }
 
@@ -85,7 +90,7 @@ class AudioPlayer extends Component {
     })
   }
 
-  shouldUpdateProgressBar = () => Date.now() - this.lastSeek > 500
+  shouldUpdateProgressBar = () => Date.now() - this.lastSeek > 200
 
   start = () => {
     this.updateState()

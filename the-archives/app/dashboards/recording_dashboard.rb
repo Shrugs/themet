@@ -10,6 +10,7 @@ class RecordingDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     num: Field::Number,
+    popular: Field::Boolean,
     image: PaperclipField,
     narrarator: Field::String,
     author: Field::String,
@@ -28,6 +29,7 @@ class RecordingDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :num,
+    :popular,
     :image,
     :title,
     :author,
@@ -38,6 +40,7 @@ class RecordingDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :id,
     :num,
+    :popular,
     :image,
     :narrarator,
     :author,
@@ -53,6 +56,7 @@ class RecordingDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :num,
+    :popular,
     :image,
     :narrarator,
     :author,

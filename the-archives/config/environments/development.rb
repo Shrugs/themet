@@ -63,6 +63,7 @@ Rails.application.configure do
   # }
   config.paperclip_defaults = {
     storage: :fog,
+    fog_host: ENV['ASSETS_BUCKET_HOST'],
     fog_credentials: {
       provider: :AWS,
       aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
