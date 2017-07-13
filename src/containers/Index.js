@@ -28,6 +28,9 @@ EStyleSheet.build({
   FontOffBackgroundColor: FontStyle.OffBackgroundColor,
   FontHighlightColor: FontStyle.HighlightColor,
   ButtonFontSize: FontStyle.ButtonFontSize,
+  KeyFamily: FontStyle.KeyFamily,
+  KeyStyle: FontStyle.KeyStyle,
+  White: Style.White,
 })
 
 const initialRoute = {

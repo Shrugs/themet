@@ -89,7 +89,6 @@ class MainScene extends SceneComponent {
 
   renderHeader = props => <TabBar
     {...props}
-    pressColor={Style.PrimaryLightBlue}
     style={styles.tabbar}
     labelStyle={styles.labelStyle}
     indicatorStyle={styles.indicatorStyle}
@@ -170,8 +169,7 @@ const styles = EStyleSheet.create({
     minHeight: '100%',
   },
   header: {
-    aspectRatio: 1,
-    minHeight: '40%',
+    height: '30%',
     width: '100%',
   },
   input: {
@@ -181,10 +179,10 @@ const styles = EStyleSheet.create({
     flex: 1,
   },
   tabbar: {
-    backgroundColor: Style.PrimaryBlue,
+    backgroundColor: Style.InverseBackgroundColor,
   },
   indicatorStyle: {
-    backgroundColor: Style.White,
+    backgroundColor: Style.PrimaryColor,
   },
   labelStyle: {
     color: Style.White,

@@ -70,7 +70,7 @@ class ShowNumScene extends SceneComponent {
                 <Text style={[styles.text, styles.title]}>{recording.title}</Text>
               </View>
               <View style={styles.row}>
-                <Text style={[styles.text, styles.faded]}>{recording.author}</Text>
+                <Text style={[styles.text, styles.faded, styles.author]}>{recording.author}</Text>
               </View>
               <View style={styles.row}>
                 <Text style={[styles.text, styles.transcript]}>{recording.transcript}</Text>
@@ -137,12 +137,19 @@ const styles = EStyleSheet.create({
     color: '$FontOffBackgroundColor',
   },
   transcript: {
+    fontSize: 18,
     marginTop: 20,
   },
   recordingId: {
+    textAlign: 'right',
+    marginRight: 0,
   },
   narrarator: {
+    fontSize: 15,
     flex: 1,
+  },
+  author: {
+    fontSize: 14,
   },
 })
 

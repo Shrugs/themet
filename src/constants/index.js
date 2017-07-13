@@ -1,12 +1,11 @@
+import { Platform } from 'react-native'
 
-export const MET_RED = '#ff0000'
+export const MET_RED = '#ea0029'
 export const MET_BLUE = '#0000ff'
-export const MET_LIGHT_BLUE = '#0000e2'
 
 export const Style = {
   PrimaryColor: MET_RED,
   PrimaryBlue: MET_BLUE,
-  PrimaryLightBlue: MET_LIGHT_BLUE,
   BackgroundColor: '#FFFFFF',
   InverseBackgroundColor: '#020202',
   OffBackgroundColor: '#DDD',
@@ -18,7 +17,8 @@ export const FontStyle = {
   PrimaryColor: '#1a1a1a',
   OffBackgroundColor: '#999',
   HighlightColor: MET_RED,
-
+  KeyFamily: Platform.OS === 'ios' ? 'Georgia-Italic' : 'notoserif',
+  KeyStyle: Platform.OS === 'ios' ? 'normal' : 'italic',
   ButtonFontSize: 16,
 }
 
