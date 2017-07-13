@@ -28,7 +28,6 @@ class NumberPicker extends Component {
   onChangeText = (text) => {
     LayoutAnimation.easeInEaseOut()
     this.setState({ number: text })
-    this.setState({ focus: !!text.length })
   }
 
   goToNumber = () => {
@@ -46,7 +45,7 @@ class NumberPicker extends Component {
           <Spacer size={1} />
           <View style={styles.inputContainer}>
             <TextInput
-              style={[styles.input, this.state.focus ? styles.focused : styles.unfocused]}
+              style={[styles.input]}
               keyboardType='numeric'
               placeholder='Audio Guide Number'
               onChangeText={this.onChangeText}
@@ -85,6 +84,8 @@ const styles = EStyleSheet.create({
     flex: 8,
 
     fontSize: 20,
+    paddingLeft: 20,
+    textAlign: 'left',
 
     borderColor: '$FontOffBackgroundColor',
     borderWidth: 1,
@@ -92,13 +93,6 @@ const styles = EStyleSheet.create({
 
     height: 50,
     backgroundColor: '$BackgroundColor',
-  },
-  focused: {
-    paddingLeft: 20,
-    textAlign: 'left',
-  },
-  unfocused: {
-    textAlign: 'center',
   },
   invisible: {
     width: 0,

@@ -60,7 +60,7 @@ class MainScene extends SceneComponent {
         message: 'So like, we know art, but maybe not all of them, you know?',
         alertType: 'warning',
         stylesheetWarning: {
-          backgroundColor: Style.PrimaryBlue,
+          backgroundColor: Style.InverseBackgroundColor,
         },
         viewTopInset: 15,
         viewRightInset: 5,
@@ -157,6 +157,7 @@ const styles = EStyleSheet.create({
   },
   topBackground: {
     backgroundColor: '$PrimaryColor',
+    flex: 2,
   },
   bottomBackground: {
     backgroundColor: '$BackgroundColor',

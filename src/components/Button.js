@@ -53,6 +53,7 @@ const styles = EStyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '$BackgroundColor',
+    borderRadius: 5,
   },
   text: {
     fontSize: '$ButtonFontSize',
