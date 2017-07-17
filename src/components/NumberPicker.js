@@ -97,6 +97,7 @@ const styles = EStyleSheet.create({
   invisible: {
     width: 0,
     opacity: 0,
+    flex: 0,
   },
   visible: {
     flex: 4,
