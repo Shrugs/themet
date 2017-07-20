@@ -6,12 +6,46 @@ import {
   ActivityIndicator,
   View,
   Text,
+  Image,
   TouchableHighlight,
 } from 'react-native'
 
+import LinearGradient from 'react-native-linear-gradient'
+
 import { Style } from '../constants'
 
-import { numToWords } from '../lib/helpers'
+// eslint-disable-next-line react/prop-types
+const BannerEntry = ({ rec, onPress }) => (
+  <TouchableHighlight
+    underlayColor={'transparent'}
+    key={rec.id}
+    onPress={onPress}
+  >
+    <Image
+      style={styles.listItem}
+      resizeMode='cover'
+      source={{ uri: rec.image_banner }}
+    >
+      <LinearGradient
+        colors={[
+          'transparent',
+          'black',
+        ]}
+        style={styles.listItemTextContainer}
+      >
+        <Text style={[styles.listItemText, styles.listItemTitle]}>
+          {rec.id}
+        </Text>
+        <Text style={[styles.listItemText, styles.listItemTitle]}>
+          {rec.title}
+        </Text>
+        <Text style={[styles.listItemText, styles.faded, styles.listItemSubtitle]}>
+          {rec.narrarator}
+        </Text>
+      </LinearGradient>
+    </Image>
+  </TouchableHighlight>
+)
 
 class NumberList extends React.Component {
 
@@ -50,15 +84,11 @@ class NumberList extends React.Component {
           </Text>
         }
         {!loading && recordings.map(rec =>
-          <TouchableHighlight
-            underlayColor={Style.OffBackgroundColor}
+          <BannerEntry
             key={rec.id}
+            rec={rec}
             onPress={() => this.props.goToNumber(rec.id)}
-          >
-            <Text style={[styles.text, styles.entry]}>
-              {numToWords(rec.id)}
-            </Text>
-          </TouchableHighlight>
+          />
         )}
         {didFail &&
           <Text
@@ -79,10 +109,9 @@ class NumberList extends React.Component {
 const styles = EStyleSheet.create({
   $baseFontSize: 18,
   list: {
+    width: '100%',
     flex: 1,
     backgroundColor: '$BackgroundColor',
-    paddingTop: 15,
-    paddingBottom: 15,
   },
   loading: {
     flex: 1,
@@ -90,6 +119,13 @@ const styles = EStyleSheet.create({
   text: {
     marginTop: 10,
     marginBottom: 10,
+    marginLeft: 15,
+    marginRight: 15,
+  },
+  listItemText: {
+    color: '$White',
+    marginTop: 1,
+    marginBottom: 1,
     marginLeft: 25,
     marginRight: 25,
   },
@@ -103,9 +139,20 @@ const styles = EStyleSheet.create({
   listHeader: {
     marginTop: 25,
   },
-  entry: {
-    fontSize: '$baseFontSize * 1.2',
+  listItem: {
+    height: 125,
+  },
+  listItemTextContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    paddingBottom: 5,
+  },
+  listItemTitle: {
+    fontSize: '$baseFontSize',
     fontWeight: 'bold',
+  },
+  listItemSubtitle: {
+    fontSize: '$baseFontSize * 0.9',
   },
   centeredText: {
     textAlign: 'center',

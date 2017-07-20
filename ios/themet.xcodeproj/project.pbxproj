@@ -24,6 +24,7 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		C90F6D911EA5757D00B174F9 /* libReactNativeAudioToolkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F6D901EA5756900B174F9 /* libReactNativeAudioToolkit.a */; };
 		C960E1E21ECAE6AB009B341A /* libKCKeepAwake.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C960E1C71ECAE69C009B341A /* libKCKeepAwake.a */; };
+		C9ACDF6E1F20448B0010AA40 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9ACDF521F20447E0010AA40 /* libBVLinearGradient.a */; };
 		C9CFBFC31EBEE4F7008E0E0B /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 /* End PBXBuildFile section */
 
@@ -217,6 +218,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = KCKeepAwake;
 		};
+		C9ACDF511F20447E0010AA40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9ACDF4D1F20447E0010AA40 /* BVLinearGradient.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = BVLinearGradient;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -243,6 +251,7 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		C90F6D721EA5756800B174F9 /* ReactNativeAudioToolkit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeAudioToolkit.xcodeproj; path = "../node_modules/react-native-audio-toolkit/ios/ReactNativeAudioToolkit/ReactNativeAudioToolkit.xcodeproj"; sourceTree = "<group>"; };
 		C960E1C21ECAE69C009B341A /* KCKeepAwake.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KCKeepAwake.xcodeproj; path = "../node_modules/react-native-keep-awake/ios/KCKeepAwake.xcodeproj"; sourceTree = "<group>"; };
+		C9ACDF4D1F20447E0010AA40 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +259,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9ACDF6E1F20448B0010AA40 /* libBVLinearGradient.a in Frameworks */,
 				C960E1E21ECAE6AB009B341A /* libKCKeepAwake.a in Frameworks */,
 				C90F6D911EA5757D00B174F9 /* libReactNativeAudioToolkit.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -396,6 +406,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				C9ACDF4D1F20447E0010AA40 /* BVLinearGradient.xcodeproj */,
 				C960E1C21ECAE69C009B341A /* KCKeepAwake.xcodeproj */,
 				C90F6D721EA5756800B174F9 /* ReactNativeAudioToolkit.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
@@ -466,6 +477,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		C9ACDF4E1F20447E0010AA40 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C9ACDF521F20447E0010AA40 /* libBVLinearGradient.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -522,6 +541,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = C9ACDF4E1F20447E0010AA40 /* Products */;
+					ProjectRef = C9ACDF4D1F20447E0010AA40 /* BVLinearGradient.xcodeproj */;
+				},
 				{
 					ProductGroup = C960E1C31ECAE69C009B341A /* Products */;
 					ProjectRef = C960E1C21ECAE69C009B341A /* KCKeepAwake.xcodeproj */;
@@ -770,6 +793,13 @@
 			fileType = archive.ar;
 			path = libKCKeepAwake.a;
 			remoteRef = C960E1C61ECAE69C009B341A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C9ACDF521F20447E0010AA40 /* libBVLinearGradient.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBVLinearGradient.a;
+			remoteRef = C9ACDF511F20447E0010AA40 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

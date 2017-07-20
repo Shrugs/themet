@@ -7,6 +7,7 @@ class RecordingsController < ApplicationController
       {
         id: r.num,
         image: r.image.url,
+        image_banner: r.image.url(:banner),
         narrarator: r.narrarator,
         author: r.author,
         title: r.title,

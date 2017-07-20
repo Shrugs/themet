@@ -1,6 +1,8 @@
 development: &default
   adapter: postgresql
   database: the_archives_development
+  username: postgres
+  host: localhost
   encoding: utf8
   min_messages: warning
   pool: <%= Integer(ENV.fetch("DB_POOL", 5)) %>
