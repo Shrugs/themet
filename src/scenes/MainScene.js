@@ -160,7 +160,7 @@ const styles = EStyleSheet.create({
     flex: 2,
   },
   bottomBackground: {
-    backgroundColor: '$BackgroundColor',
+    backgroundColor: '$InverseBackgroundColor',
   },
   container: {
     flex: 1,

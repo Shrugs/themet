@@ -29,7 +29,7 @@ const BannerEntry = ({ rec, onPress }) => (
       <LinearGradient
         colors={[
           'transparent',
-          'black',
+          Style.InverseBackgroundColor,
         ]}
         style={styles.listItemTextContainer}
       >
@@ -43,6 +43,9 @@ const BannerEntry = ({ rec, onPress }) => (
           {rec.narrarator}
         </Text>
       </LinearGradient>
+      <Text style={[styles.centeredText, styles.joke]}>
+        Thank you for scrolling. This list has ended.
+      </Text>
     </Image>
   </TouchableHighlight>
 )
@@ -109,9 +112,10 @@ class NumberList extends React.Component {
 const styles = EStyleSheet.create({
   $baseFontSize: 18,
   list: {
+    height: 'auto',
     width: '100%',
     flex: 1,
-    backgroundColor: '$BackgroundColor',
+    backgroundColor: '$InverseBackgroundColor',
   },
   loading: {
     flex: 1,
@@ -126,8 +130,8 @@ const styles = EStyleSheet.create({
     color: '$White',
     marginTop: 1,
     marginBottom: 1,
-    marginLeft: 25,
-    marginRight: 25,
+    marginLeft: 10,
+    marginRight: 10,
   },
   title: {
     fontSize: '$baseFontSize * 0.9',
@@ -141,6 +145,8 @@ const styles = EStyleSheet.create({
   },
   listItem: {
     height: 125,
+    position: 'relative',
+    overflow: 'visible',
   },
   listItemTextContainer: {
     flex: 1,
@@ -148,7 +154,7 @@ const styles = EStyleSheet.create({
     paddingBottom: 5,
   },
   listItemTitle: {
-    fontSize: '$baseFontSize',
+    fontSize: '$baseFontSize * 1.1',
     fontWeight: 'bold',
   },
   listItemSubtitle: {
@@ -156,6 +162,14 @@ const styles = EStyleSheet.create({
   },
   centeredText: {
     textAlign: 'center',
+  },
+  joke: {
+    position: 'absolute',
+    bottom: -120,
+    left: 0,
+    width: '100%',
+
+    color: '$OffBackgroundColor',
   },
 })
 
