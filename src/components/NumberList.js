@@ -121,6 +121,7 @@ const styles = EStyleSheet.create({
     flex: 1,
   },
   text: {
+    color: '$White',
     marginTop: 10,
     marginBottom: 10,
     marginLeft: 15,
